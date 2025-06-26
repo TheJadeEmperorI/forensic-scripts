@@ -39,15 +39,34 @@ def main():
     parser_tw = subparsers.add_parser("tree-walker", aliases=["tw"], help="later")
     parser_tw.add_argument("SRC", help="Directory path to analyze")
     
+    parser_tw.add_argument("--mode",
+                           choices=["list-files","hash-files"],
+                           default="list-files",
+                           help="Later")
+    
     parser_tw.add_argument("--hash",
                            choices=["md5", "sha1", "sha256", "sha512"],
                            default="md5",
                            help="Hash all files found with the hash algorithm selected | By default: md5")
     
+    
     parser_tw.add_argument("--output-file",
                            "-o",
                            help="Output file's path."
                            )
+    
+    parser_tw.add_argument("--buffer-level",
+                       type=int,
+                       choices=[1,2,3,4,5],
+                       dest= "buffer_level",
+                       default=1, help="The percentage of available RAM to use during the hash :"
+                                               "\n\t 1. 1%%"
+                                               "\n\t 2. 10%%"
+                                               "\n\t 3. 30%%"
+                                               "\n\t 4. 50%%"
+                                               "\n\t 5. 100%%"
+                                               "\n (default 1)"
+                       )
     
     #-- HASH-FILE PARSER --
     parser_hf = subparsers.add_parser("hash-file", aliases=["hf"], help="later",formatter_class=argparse.RawTextHelpFormatter)
@@ -95,7 +114,13 @@ def main():
             exit(e.code)
     
     if args.MODE_SELECTED in {"tree-walker","tw"}:
-        tw.scan_directory(args.SRC)
+        try:
+            tw.scan_directory(args.SRC,args.hash,args.output_file)
+        
+        except FileNotFoundError:
+            log.log_file_not_found(args.SRC)
+            exit(2)
+            
         
     elif args.MODE_SELECTED in {"hash-file","hf"}:
         try:
