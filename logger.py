@@ -23,8 +23,8 @@ file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
-def log_option_error():
-    logger.error("The user selected an invalid option.")
+def log_parser_error():
+    logger.error("The user [forgot]/[selected an invalid] option .")
     
 def log_file_not_found(filepath):
     logger.error("File not found: {}".format(filepath))

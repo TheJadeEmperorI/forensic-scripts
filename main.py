@@ -90,7 +90,7 @@ def main():
         if e.code == 0:
             sys.exit(0)
         else:
-            log.log_option_error()
+            log.log_parser_error()
             print("One or more fields are incorrect. Use --help (-h) for more informations about the flags.")
             exit(e.code)
     
