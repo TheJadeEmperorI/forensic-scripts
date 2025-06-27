@@ -15,6 +15,7 @@ Description :
 #-- MODULES --
 import argparse
 import tree_walker as tw
+import gather_metadata as gm
 import hash_file as hf
 import logger as log
 import os
@@ -68,6 +69,16 @@ def main():
                                                "\n (default 1)"
                        )
     
+    #-- GATHER-METADATA --
+    parser_gm = subparsers.add_parser("gather-metadata", aliases=["gm"], help="later")
+    parser_gm.add_argument("SRC", help="File's path to analyze")
+      
+    parser_gm.add_argument("--output-file",
+                           "-o",
+                           help="Output file's path."
+                           )
+    
+    
     #-- HASH-FILE PARSER --
     parser_hf = subparsers.add_parser("hash-file", aliases=["hf"], help="later",formatter_class=argparse.RawTextHelpFormatter)
     parser_hf.add_argument("SRC", help="File path to hash")
@@ -113,9 +124,19 @@ def main():
             print("One or more fields are incorrect. Use --help (-h) for more informations about the flags.")
             exit(e.code)
     
+    log.log_tool_usage(args.MODE_SELECTED)
+    
     if args.MODE_SELECTED in {"tree-walker","tw"}:
         try:
             tw.scan_directory(args.SRC,args.hash,args.output_file)
+        
+        except FileNotFoundError:
+            log.log_file_not_found(args.SRC)
+            exit(2)
+    
+    elif args.MODE_SELECTED in {"gather-metadata","gm"}:
+        try:
+            gm.gather_metadata(args.SRC)
         
         except FileNotFoundError:
             log.log_file_not_found(args.SRC)

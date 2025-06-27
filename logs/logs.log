@@ -16,3 +16,8 @@
 2025-06-26 19:24:31,177 log_option_error     ERROR    The user selected an invalid option.
 2025-06-26 22:34:54,383 log_option_error     ERROR    The user selected an invalid option.
 2025-06-26 22:39:10,903 log_parser_error     ERROR    The user [forgot]/[selected an invalid] option .
+2025-06-27 23:27:51,040 log_parser_error     ERROR    The user [forgot]/[selected an invalid] option .
+2025-06-27 23:28:04,304 log_parser_error     ERROR    The user [forgot]/[selected an invalid] option .
+2025-06-27 23:57:06,513 log_parser_error     ERROR    The user [forgot]/[selected an invalid] option .
+2025-06-28 00:05:41,743 log_tool_usage       INFO     The user ran : gm
+2025-06-28 00:06:09,593 log_parser_error     ERROR    The user [forgot]/[selected an invalid] option .

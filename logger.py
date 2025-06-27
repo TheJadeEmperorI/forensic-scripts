@@ -23,6 +23,9 @@ file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
+def log_tool_usage(mode_selected: str):
+    logger.info("The user ran : {}".format(mode_selected))
+
 def log_parser_error():
     logger.error("The user [forgot]/[selected an invalid] option .")
     
