@@ -72,6 +72,19 @@ def main():
     #-- GATHER-METADATA --
     parser_gm = subparsers.add_parser("gather-metadata", aliases=["gm"], help="later")
     parser_gm.add_argument("SRC", help="File's path to analyze")
+    
+    parser_gm.add_argument("--filter",
+                           default=["all"],
+                           choices=["all", "system", "time", "user", "hardware"],
+                           nargs="+",
+                           help="Later"
+                          )
+    
+    
+    parser_gm.add_argument("--quiet",
+                           action="store_true",
+                           help="Disable console output, only write to output file if specified")
+
       
     parser_gm.add_argument("--output-file",
                            "-o",
@@ -126,6 +139,8 @@ def main():
     
     log.log_tool_usage(args.MODE_SELECTED)
     
+    
+    #-- LAUNCHER --
     if args.MODE_SELECTED in {"tree-walker","tw"}:
         try:
             tw.scan_directory(args.SRC,args.hash,args.output_file)
@@ -136,7 +151,10 @@ def main():
     
     elif args.MODE_SELECTED in {"gather-metadata","gm"}:
         try:
-            gm.gather_metadata(args.SRC)
+            if "all" in args.filter:
+                gm.gather_metadata(args.SRC, args.output_file, ["system","hardware","user","time"], args.quiet)
+            else:
+                gm.gather_metadata(args.SRC, args.output_file, args.filter, args.quiet)
         
         except FileNotFoundError:
             log.log_file_not_found(args.SRC)

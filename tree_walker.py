@@ -20,5 +20,8 @@ def scan_directory(path_to_scan: str, hash_algorithm: str=None, output_path: str
             
             if output_path is not None:
                 output_file.write(file_path + "\t|\t" + hash_file +"\n")
+    
+    if output_path is not None:
+        output_file.close()
                 
                 
