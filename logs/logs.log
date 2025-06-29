@@ -35,3 +35,13 @@
 2025-06-28 16:01:56,468 log_tool_usage       INFO     The user ran : gm
 2025-06-28 16:18:15,134 log_tool_usage       INFO     The user ran : gm
 2025-06-28 16:18:41,461 log_tool_usage       INFO     The user ran : gm
+2025-06-29 14:43:45,283 log_parser_error     ERROR    The user [forgot]/[selected an invalid] option .
+2025-06-29 14:45:51,883 log_tool_usage       INFO     The user ran : gm
+2025-06-29 14:47:10,466 log_tool_usage       INFO     The user ran : gm
+2025-06-29 14:47:37,873 log_tool_usage       INFO     The user ran : gm
+2025-06-29 14:47:47,213 log_tool_usage       INFO     The user ran : gm
+2025-06-29 14:48:08,943 log_tool_usage       INFO     The user ran : gm
+2025-06-29 14:51:14,646 log_tool_usage       INFO     The user ran : gm
+2025-06-29 14:51:30,906 log_tool_usage       INFO     The user ran : gm
+2025-06-29 14:52:34,936 log_tool_usage       INFO     The user ran : gm
+2025-06-29 14:53:01,956 log_tool_usage       INFO     The user ran : gm

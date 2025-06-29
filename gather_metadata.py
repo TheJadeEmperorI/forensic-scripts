@@ -12,6 +12,8 @@ import sys
 def gather_metadata(input_file: str, output_path: str, filters: list, quiet: bool):
     if output_path is not None:
         output_file = open(output_path, "a")
+    else:
+        output_file = None
     
     operating_system = sys.platform
     file_info = os.stat(input_file)
@@ -27,8 +29,7 @@ def gather_metadata(input_file: str, output_path: str, filters: list, quiet: boo
         
     if output_path is not None:
         output_file.close()
-    
-#-- DONT FORGET TO PUT IT OUTPUT_FILE = NONE BY DEFAULT
+
 def get_system_metadata(file_info, input_file: str, output_file: str, operating_system: str, quiet: bool):
     islink = os.path.islink(input_file)
     absolute_path = os.path.abspath(input_file)
@@ -38,6 +39,7 @@ def get_system_metadata(file_info, input_file: str, output_file: str, operating_
     parent_directory = os.path.dirname(input_file)
     
     if not quiet:
+        print("-- SYSTEM INFORMATIONS --")
         print("OS : ", operating_system)
         print("File mode : ", file_mode)
         print("Number of hard links : ", nbr_hard_links)
@@ -47,13 +49,14 @@ def get_system_metadata(file_info, input_file: str, output_file: str, operating_
         print("Parent Directory : ", parent_directory)
     
     if output_file is not None:
-        output_file.write("OS : ", operating_system, "\n")
-        output_file.write("File mode : ", file_mode, "\n")
-        output_file.write("Number of hard links : ", nbr_hard_links, "\n")
-        output_file.write("Is a symlink : ", islink, "\n")
-        output_file.write("Absolute Path : ", absolute_path, "\n")
-        output_file.write("File Size : ", file_size, "\n")
-        output_file.write("Parent Directory : ", parent_directory, "\n")
+        output_file.write("-- SYSTEM INFORMATIONS --\n")
+        output_file.write("OS : " + operating_system + "\n")
+        output_file.write("File mode : " + str(file_mode) + "\n")
+        output_file.write("Number of hard links : " + str(nbr_hard_links) + "\n")
+        output_file.write("Is a symlink : "+ str(islink) + "\n")
+        output_file.write("Absolute Path : "+ absolute_path+ "\n")
+        output_file.write("File Size : "+ str(file_size) + "\n")
+        output_file.write("Parent Directory : "+ parent_directory+ "\n")
     
 
 def get_hardware_metadata(file_info, output_file: str, operating_system, quiet):
@@ -68,8 +71,18 @@ def get_hardware_metadata(file_info, output_file: str, operating_system, quiet):
 
     
 def get_user_metadata(file_info, output_file: str, quiet):
-    print("Owner User ID : ", file_info.st_uid)
-    print("Group ID : ", file_info.st_gid)
+    owner_user_id = file_info.st_uid
+    group_id = file_info.st_gid
+    
+    if not quiet:
+        print("-- USER INFORMATIONS --")
+        print("Owner User ID : ", owner_user_id)
+        print("Group ID : ", group_id)
+    
+    if output_file is not None:
+        output_file.write("-- USER INFORMATIONS --\n")
+        output_file.write("Owner User ID : " + str(owner_user_id) + "\n")
+        output_file.write("Group ID : " + str(group_id) + "\n")
     
     
 def get_time_metadata(file_info, output_file: str, operating_system: str, quiet):
